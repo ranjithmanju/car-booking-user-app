@@ -5,7 +5,7 @@ import { Label } from "../reusable/Label";
 import { Mail, Lock, User } from 'lucide-react';
 import { signupUser } from '../../api/auth';
 
-export function SignupForm({ onError, onSuccess }: { onError: (message: string) => void, onSuccess: (token: string) => void }) {
+export function SignupForm({ onError, onSuccess }: { onError: (message: string) => void, onSuccess: (user: any) => void }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +18,8 @@ export function SignupForm({ onError, onSuccess }: { onError: (message: string) 
     }
     try {
       const response = await signupUser(email, password);
-      onSuccess(response.token);
+      // You might want to store the name separately, as Firebase Auth doesn't have a name field
+      onSuccess(response.user);
     } catch (error) {
       onError('Signup failed. Please try again.');
     }

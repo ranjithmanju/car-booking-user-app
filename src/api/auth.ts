@@ -1,61 +1,36 @@
-interface AuthResponse {
-    token: string;
-    user: {
-      id: string;
-      email: string;
-    };
+import { auth } from '../firebase';
+import { 
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  AuthError
+} from 'firebase/auth';
+import { User } from 'firebase/auth';
+
+export interface AuthResponse {
+  user: User;
+}
+
+export async function loginUser(email: string, password: string): Promise<AuthResponse> {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return { user: userCredential.user };
+  } catch (error) {
+    const authError = error as AuthError;
+    console.error('Login error:', authError.code, authError.message);
+    throw authError;
   }
-  
-  interface VerifyResponse {
-      valid: boolean;
-      userId: string;
-    }
-  
-  const API_URL = 'http://localhost:5000/api'; 
-  
-  export async function loginUser(email: string, password: string): Promise<AuthResponse> {
-    const response = await fetch(`${API_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-  
-    if (!response.ok) {
-      throw new Error('Login failed');
-    }
-  
-    return response.json();
-  }
-  
-  export async function signupUser(email: string, password: string): Promise<AuthResponse> {
-    const response = await fetch(`${API_URL}/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-  
-    if (!response.ok) {
-      throw new Error('Signup failed');
-    }
-  
-    return response.json();
-  }
-  
-  export async function verifyToken(token: string): Promise<VerifyResponse> {
-      const response = await fetch('/api/verify', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-    
-      if (!response.ok) {
-        throw new Error('Token verification failed');
-      }
-    
-      return response.json();
-    }
+}
+
+export async function signupUser(email: string, password: string): Promise<AuthResponse> {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  return { user: userCredential.user };
+}
+
+export async function logoutUser(): Promise<void> {
+  await signOut(auth);
+}
+
+export function getCurrentUser(): User | null {
+  return auth.currentUser;
+}

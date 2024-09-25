@@ -4,8 +4,9 @@ import { Input } from "../reusable/Input";
 import { Label } from "../reusable/Label";
 import { Mail, Lock } from 'lucide-react';
 import { loginUser } from '../../api/auth';
+import { AuthError } from 'firebase/auth';
 
-export function LoginForm({ onError, onSuccess }: { onError: (message: string) => void, onSuccess: (token: string) => void }) {
+export function LoginForm({ onError, onSuccess }: { onError: (message: string) => void, onSuccess: (user: any) => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,11 +17,12 @@ export function LoginForm({ onError, onSuccess }: { onError: (message: string) =
       return;
     }
     try {
-      console.log(email,password)
       const response = await loginUser(email, password);
-      onSuccess(response.token);
+      onSuccess(response.user);
     } catch (error) {
-      onError('Login failed. Please check your credentials.');
+      const authError = error as AuthError;
+      console.error('Login error:', authError.code, authError.message);
+      onError(authError.message || 'Login failed. Please check your credentials.');
     }
   };
 
