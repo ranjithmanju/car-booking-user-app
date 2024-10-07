@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import emailjs from '@emailjs/browser';
 import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft, Car, Package, FileText, CheckCircle } from 'lucide-react'
@@ -30,10 +30,6 @@ export default function Confirm() {
     setIsSlideIn(true);
     setTimeout(() => setIsSlideIn(false), 500);
   }, []);
-
-  console.log(capacityData)
-
-  const form = useRef();
 
   const sendEmail = () => {
     const templateParams = {
