@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getStepStyle } from "../../../../../utils/progressIndicator";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { vehicles, Vehicle } from "../vehicleData";
 import {
   Users,
-  Briefcase,
-  Award,
-  Clock,
   X,
   ShieldCheck,
   ArrowRight,
@@ -19,12 +16,10 @@ import {
   ScaleIcon,
   TruckIcon,
   CarIcon,
-  Hospital,
-  Weight
+  Hospital
 } from "lucide-react";
 
 const SecuredVehiclesList: React.FC = () => {
-  const location = useLocation();
   const [isSlideIn, setIsSlideIn] = useState(false);
   const navigate = useNavigate();
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
