@@ -3,7 +3,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
-  AuthError
+  AuthError,
+  updatePassword
 } from 'firebase/auth';
 import { User } from 'firebase/auth';
 
@@ -11,10 +12,10 @@ export interface AuthResponse {
   user: User;
 }
 
-export async function loginUser(email: string, password: string): Promise<AuthResponse> {
+export async function loginUser(email: string, password: string): Promise<User> {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return { user: userCredential.user };
+    return userCredential.user;
   } catch (error) {
     const authError = error as AuthError;
     console.error('Login error:', authError.code, authError.message);
@@ -33,4 +34,18 @@ export async function logoutUser(): Promise<void> {
 
 export function getCurrentUser(): User | null {
   return auth.currentUser;
+}
+
+export async function changePassword(newPassword: string): Promise<void> {
+  const user = auth.currentUser;
+  if (!user) {
+    throw new Error('No user is currently signed in');
+  }
+  try {
+    await updatePassword(user, newPassword);
+  } catch (error) {
+    const authError = error as AuthError;
+    console.error('Change password error:', authError.code, authError.message);
+    throw authError;
+  }
 }
