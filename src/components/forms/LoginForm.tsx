@@ -17,8 +17,8 @@ export function LoginForm({ onError, onSuccess }: { onError: (message: string) =
       return;
     }
     try {
-      const response = await loginUser(email, password);
-      onSuccess(response.user);
+      const user = await loginUser(email, password);
+      onSuccess(user);
     } catch (error) {
       const authError = error as AuthError;
       console.error('Login error:', authError.code, authError.message);
