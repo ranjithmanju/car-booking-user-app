@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css"
-import { ChevronDown, ArrowRight, ArrowLeft, Car, Package, FileText, CheckCircle } from 'lucide-react'
-import { getStepStyle } from '../../../../../utils/progressIndicator';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import {
+  ArrowRight,
+  ArrowLeft,
+  Car,
+  Package,
+  FileText,
+  CheckCircle,
+} from "lucide-react";
+import { getStepStyle } from "../../../../../utils/progressIndicator";
 
 const Details: React.FC = () => {
-  const [startDate, setStartDate] = useState<Date | null>(null)
-  // const [endDate, setEndDate] = useState<Date | null>(null)
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const [isSlideIn, setIsSlideIn] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    fromLocation: '',
-    toLocation: '',
+    name: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    fromLocation: "",
+    toLocation: "",
   });
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,7 +34,7 @@ const Details: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleBackClick = () => {
@@ -36,29 +42,40 @@ const Details: React.FC = () => {
   };
 
   const handleContinueClick = () => {
-    if (formData.name && formData.lastName && formData.email && formData.phone && 
-        formData.fromLocation && formData.toLocation && startDate) {
-      navigate('/dashboard/secured-vehicles/confirm', {
+    if (
+      formData.name &&
+      formData.lastName &&
+      formData.email &&
+      formData.phone &&
+      formData.fromLocation &&
+      formData.toLocation &&
+      startDate
+    ) {
+      navigate("/dashboard/secured-vehicles/confirm", {
         state: {
           slideIn: true,
-          detailsData: { ...formData, startDate, },
+          detailsData: { ...formData, startDate },
           capacityData: location.state?.capacityData,
-          vehicleData: location.state?.vehicleData
-        }
+          vehicleData: location.state?.vehicleData,
+        },
       });
     } else {
-      alert('Please fill in all required fields');
+      alert("Please fill in all required fields");
     }
   };
 
-  const currentStep = 'details';
-  const vehicleStyle = getStepStyle(currentStep, 'vehicle');
-  const capacityStyle = getStepStyle(currentStep, 'capacity');
-  const detailsStyle = getStepStyle(currentStep, 'details');
-  const confirmStyle = getStepStyle(currentStep, 'confirm');
+  const currentStep = "details";
+  const vehicleStyle = getStepStyle(currentStep, "vehicle");
+  const capacityStyle = getStepStyle(currentStep, "capacity");
+  const detailsStyle = getStepStyle(currentStep, "details");
+  const confirmStyle = getStepStyle(currentStep, "confirm");
 
   return (
-    <div className={`p-4 pt-20 bg-white text-black min-h-full ${isSlideIn ? 'animate-slide-in' : ''}`}>
+    <div
+      className={`p-4 pt-20 bg-white text-black min-h-full ${
+        isSlideIn ? "animate-slide-in" : ""
+      }`}
+    >
       <div className="max-w-7xl mx-auto relative pb-8">
         <div className="flex justify-between items-center mb-4">
           <button
@@ -71,51 +88,77 @@ const Details: React.FC = () => {
           <div className="flex space-x-14">
             <div className="flex flex-col items-center">
               <div className="flex items-center mb-2">
-                <div className={`${vehicleStyle.iconBg} ${vehicleStyle.iconColor} p-3 rounded-full mr-2`}>
+                <div
+                  className={`${vehicleStyle.iconBg} ${vehicleStyle.iconColor} p-3 rounded-full mr-2`}
+                >
                   <Car size={24} />
                 </div>
                 <div className="flex items-center">
                   <span className="font-semibold mr-2 text-black">Vehicle</span>
-                  <span className="text-lg px-2 py-1 rounded-full text-black">01</span>
+                  <span className="text-lg px-2 py-1 rounded-full text-black">
+                    01
+                  </span>
                 </div>
               </div>
-              <div className={`w-full h-1 ${vehicleStyle.lineBg} rounded`}></div>
+              <div
+                className={`w-full h-1 ${vehicleStyle.lineBg} rounded`}
+              ></div>
             </div>
             <div className="flex flex-col items-center">
               <div className="flex items-center mb-2">
-                <div className={`${capacityStyle.iconBg} ${capacityStyle.iconColor} p-3 rounded-full mr-2`}>
+                <div
+                  className={`${capacityStyle.iconBg} ${capacityStyle.iconColor} p-3 rounded-full mr-2`}
+                >
                   <Package size={24} />
                 </div>
                 <div className="flex items-center">
-                  <span className="font-semibold mr-2 text-black">Capacity</span>
-                  <span className="text-lg px-2 py-1 rounded-full text-black">02</span>
+                  <span className="font-semibold mr-2 text-black">
+                    Capacity
+                  </span>
+                  <span className="text-lg px-2 py-1 rounded-full text-black">
+                    02
+                  </span>
                 </div>
               </div>
-              <div className={`w-full h-1 ${capacityStyle.lineBg} rounded`}></div>
+              <div
+                className={`w-full h-1 ${capacityStyle.lineBg} rounded`}
+              ></div>
             </div>
             <div className="flex flex-col items-center">
               <div className="flex items-center mb-2">
-                <div className={`${detailsStyle.iconBg} ${detailsStyle.iconColor} p-3 rounded-full mr-2`}>
+                <div
+                  className={`${detailsStyle.iconBg} ${detailsStyle.iconColor} p-3 rounded-full mr-2`}
+                >
                   <FileText size={24} />
                 </div>
                 <div className="flex items-center">
                   <span className="font-semibold mr-2 text-black">Details</span>
-                  <span className="text-lg px-2 py-1 rounded-full text-black">03</span>
+                  <span className="text-lg px-2 py-1 rounded-full text-black">
+                    03
+                  </span>
                 </div>
               </div>
-              <div className={`w-full h-1 ${detailsStyle.lineBg} rounded`}></div>
+              <div
+                className={`w-full h-1 ${detailsStyle.lineBg} rounded`}
+              ></div>
             </div>
             <div className="flex flex-col items-center">
               <div className="flex items-center mb-2">
-                <div className={`${confirmStyle.iconBg} ${confirmStyle.iconColor} p-3 rounded-full mr-2`}>
+                <div
+                  className={`${confirmStyle.iconBg} ${confirmStyle.iconColor} p-3 rounded-full mr-2`}
+                >
                   <CheckCircle size={24} />
                 </div>
                 <div className="flex items-center">
                   <span className="font-semibold mr-2 text-black">Confirm</span>
-                  <span className="text-lg px-2 py-1 rounded-full text-black">04</span>
+                  <span className="text-lg px-2 py-1 rounded-full text-black">
+                    04
+                  </span>
                 </div>
               </div>
-              <div className={`w-full h-1 ${confirmStyle.lineBg} rounded`}></div>
+              <div
+                className={`w-full h-1 ${confirmStyle.lineBg} rounded`}
+              ></div>
             </div>
           </div>
           <button
@@ -126,14 +169,21 @@ const Details: React.FC = () => {
             <ArrowRight className="w-5 h-5 ml-2" />
           </button>
         </div>
-        <h3 className="text-3xl font-semibold text-center mb-8">Passenger Details</h3>
+        <h3 className="text-3xl font-semibold text-center mb-8">
+          Passenger Details
+        </h3>
       </div>
 
       <div className="space-y-8 w-full lg:w-4/5 xl:w-2/3 mx-auto">
         <div className="space-y-4 mb-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium pb-2">First Name</label>
+              <label
+                htmlFor="firstName"
+                className="block text-sm font-medium pb-2"
+              >
+                First Name
+              </label>
               <input
                 id="name"
                 type="text"
@@ -146,7 +196,12 @@ const Details: React.FC = () => {
               />
             </div>
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium pb-2">Last Name</label>
+              <label
+                htmlFor="lastName"
+                className="block text-sm font-medium pb-2"
+              >
+                Last Name
+              </label>
               <input
                 id="lastName"
                 type="text"
@@ -186,47 +241,15 @@ const Details: React.FC = () => {
           </div>
         </div>
 
-        {vehicleData?.name !== "Bharat Benz Truck" && (
-          <h2 className="text-2xl font-bold mb-4">Options</h2>
-        )}
-
-        {vehicleData?.name !== "Bharat Benz Truck" && (
-          <div className="space-y-4 mb-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative">
-                <select className="w-full p-3 bg-gray-100 rounded-md appearance-none border border-gray-300">
-                  <option>Passengers</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4+</option>
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              </div>
-              <div className="relative">
-                <select className="w-full p-3 bg-gray-100 rounded-md appearance-none border border-gray-300">
-                  <option>Luggage</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4+</option>
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              </div>
-            </div>
-
-            <textarea
-              placeholder="Notes to driver"
-              rows={4}
-              className="w-full p-3 bg-gray-100 rounded-md resize-none border border-gray-300"
-            ></textarea>
-          </div>
-        )}
-
         <div className="space-y-4 mb-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="fromLocation" className="block text-sm font-medium mb-2">Origin</label>
+              <label
+                htmlFor="fromLocation"
+                className="block text-sm font-medium mb-2"
+              >
+                Origin
+              </label>
               <input
                 id="fromLocation"
                 type="text"
@@ -239,7 +262,12 @@ const Details: React.FC = () => {
               />
             </div>
             <div>
-              <label htmlFor="toLocation" className="block text-sm font-medium mb-2">Destination</label>
+              <label
+                htmlFor="toLocation"
+                className="block text-sm font-medium mb-2"
+              >
+                Destination
+              </label>
               <input
                 id="toLocation"
                 type="text"
@@ -255,7 +283,9 @@ const Details: React.FC = () => {
 
           <div className="grid grid-cols-1 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Start Date and Time</label>
+              <label className="block text-sm font-medium mb-1">
+                Start Date and Time
+              </label>
               <div className="w-full">
                 <DatePicker
                   selected={startDate}
@@ -272,7 +302,7 @@ const Details: React.FC = () => {
           </div>
         </div>
 
-        <button 
+        <button
           onClick={handleContinueClick}
           className="w-full bg-gray-500 text-white py-3 rounded-md flex justify-center items-center hover:bg-black transition-colors duration-300 font-semibold text-lg"
         >
@@ -281,7 +311,7 @@ const Details: React.FC = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Details;

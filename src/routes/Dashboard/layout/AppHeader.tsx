@@ -4,7 +4,7 @@ import { Button } from '../../../components/reusable/Button';
 import { useAuth } from '../../../hooks/useAuth';
 import { logoutUser, changePassword } from '../../../api/auth';
 import { User } from 'lucide-react';
-import Logo from '../../../assets/logo.png'
+import Logo from '../../../assets/STAMP-logo-header.png'
 
 const AppHeader: React.FC = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -54,22 +54,22 @@ const AppHeader: React.FC = () => {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center p-4 bg-black backdrop-filter">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center p-4 bg-white backdrop-filter backdrop-blur-lg shadow-lg">
       <div className="flex items-center space-x-4">
-        <img src={Logo} alt="Logo" className="w-10 h-10 cursor-pointer" onClick={() => navigate('/dashboard')} />
+        <img src={Logo} alt="Logo" className="w-full h-10 cursor-pointer" onClick={() => navigate('/dashboard')} />
       </div>
       <div className="flex-grow text-center"> {/* Centering the title */}
-        <h1 className="text-white text-xl font-bold">Secured fleet management</h1>
+        <h1 className="text-black text-xl font-bold">Secured Fleet Management</h1>
       </div>
       <div className="flex items-center space-x-4">
         {user && (
           <div className="relative" ref={menuRef}>
             <button
-              className="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center cursor-pointer hover:bg-opacity-30 transition-all duration-300"
+              className="w-10 h-10 rounded-full bg-gray-400 bg-opacity-20 flex items-center justify-center cursor-pointer hover:bg-opacity-50 transition-all duration-300"
               onClick={toggleUserMenu}
               aria-label="Toggle user menu"
             >
-              <User className="text-white" size={20} />
+              <User className="text-black" size={20} />
             </button>
             {showUserMenu && (
               <div className="absolute right-0 mt-2 w-72 bg-gray-800 backdrop-filter backdrop-blur-lg rounded-md shadow-lg py-4 flex flex-col items-center border border-gray-700">
@@ -93,7 +93,7 @@ const AppHeader: React.FC = () => {
       </div>
       {showChangePasswordModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg">
+          <div className="bg-white p-6 rounded-lg backdrop-filter backdrop-blur-lg">
             <h2 className="text-xl mb-4">Change Password</h2>
             <input
               type="password"

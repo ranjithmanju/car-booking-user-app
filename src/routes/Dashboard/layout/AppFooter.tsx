@@ -5,11 +5,14 @@ const AppFooter: React.FC = () => {
 
   return (
     <footer className="bg-gray-800 text-white py-4">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-center">
-          <div className="mb-4 md:mb-0">
-            <p>&copy; {currentYear} STAMP. All rights reserved.</p>
-          </div>
+      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+        {/* First div centered */}
+        <div className="flex-grow text-center">
+          <p className='text-sm'>&copy; {currentYear} Security India</p>
+        </div>
+        {/* Second div aligned to the right */}
+        <div className="ml-auto text-right">
+          <p className='text-sm'>Powered by Waveze</p>
         </div>
       </div>
     </footer>
