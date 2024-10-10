@@ -91,7 +91,7 @@ const Capacity: React.FC = () => {
 
   return (
     <div
-      className={`p-4 pt-20 bg-white text-black min-h-full ${
+      className={`p-4 pt-20 bg-white text-black bg-custom-gradient min-h-[100vh] ${
         isSlideIn ? "animate-slide-in" : ""
       }`}
     >
@@ -196,34 +196,38 @@ const Capacity: React.FC = () => {
       <div className="space-y-8 w-full lg:w-4/5 xl:w-2/3 mx-auto">
         {vehicleData?.name === "Bharat Benz Truck" && (
           <div className="flex flex-col items-center space-y-4 mb-6">
-            {[
-              "1-5 ton weight",
-              "5-10 ton weight",
-              "10-15 ton weight",
-            ].map((num) => (
-              <button
-                key={num}
-                className={`w-1/2 px-6 py-3 rounded-md transition-colors duration-300 flex justify-between items-center ${
-                  selectedCapacity === num
-                    ? "bg-green-500 text-white"
-                    : num === "1-5 ton weight" || num === "5-10 ton weight"
+            {["1-5 ton weight", "5-10 ton weight", "10-15 ton weight"].map(
+              (num) => (
+                <button
+                  key={num}
+                  className={`w-1/2 px-6 py-3 rounded-md transition-colors duration-300 flex justify-between items-center ${
+                    selectedCapacity === num
+                      ? "bg-green-500 text-white"
+                      : num === "1-5 ton weight" || num === "5-10 ton weight"
                       ? "bg-gray-400 text-white"
                       : "bg-green-100 text-green-700 hover:bg-green-200"
-                }`}
-                onClick={() => {
-                  if (num !== "1-5 ton weight" && num !== "5-10 ton weight") {
-                    setIsCapacitySelected(!isCapacitySelected);
-                    setSelectedCapacity(num); // Update selected capacity
+                  }`}
+                  onClick={() => {
+                    if (num !== "1-5 ton weight" && num !== "5-10 ton weight") {
+                      setIsCapacitySelected(!isCapacitySelected);
+                      setSelectedCapacity(num); // Update selected capacity
+                    }
+                  }}
+                  disabled={
+                    num === "1-5 ton weight" || num === "5-10 ton weight"
                   }
-                }}
-                disabled={num === "1-5 ton weight" || num === "5-10 ton weight"}
-              >
-                <span>{num}</span>
-                <span className="text-sm">
-                  {selectedCapacity === num ? "Selected" : num === "1-5 ton weight" || num === "5-10 ton weight" ? "Unavailable" : "Available"}
-                </span>
-              </button>
-            ))}
+                >
+                  <span>{num}</span>
+                  <span className="text-sm">
+                    {selectedCapacity === num
+                      ? "Selected"
+                      : num === "1-5 ton weight" || num === "5-10 ton weight"
+                      ? "Unavailable"
+                      : "Available"}
+                  </span>
+                </button>
+              )
+            )}
           </div>
         )}
         {vehicleData?.name !== "Bharat Benz Truck" && (
@@ -251,6 +255,7 @@ const Capacity: React.FC = () => {
                   <Button
                     variant="secondary"
                     onClick={() => handleQuantityChange(item.id, 1)}
+                    disabled={quantities[item.id] >= 3}
                     className="w-12"
                   >
                     <Plus className="h-4 w-4 mx-auto" />

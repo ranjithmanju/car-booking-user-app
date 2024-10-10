@@ -171,7 +171,7 @@ const SecuredVehiclesList: React.FC = () => {
         {availableVehicles.map((vehicle) => (
           <div
             key={vehicle.id}
-            className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-200 transition-all duration-300 hover:bg-orange-100 hover:shadow-lg group"
+            className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl overflow-hidden shadow-md border border-gray-200 transition-all duration-500 hover:bg-orange-100 hover:shadow-lg group ease-in-out"
           >
             <div className="flex p-6">
               <div className="w-1/2">
