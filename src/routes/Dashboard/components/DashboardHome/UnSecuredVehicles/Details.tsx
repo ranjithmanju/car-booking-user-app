@@ -3,6 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
+  validatePhoneNumber,
+  validateEmail,
+} from "../../../../../utils/validation";
+import {
   ArrowRight,
   ArrowLeft,
   Car,
@@ -23,6 +27,8 @@ const Details: React.FC = () => {
     fromLocation: "",
     toLocation: "",
   });
+  const [emailError, setEmailError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const vehicleData = location.state?.vehicleData; // Add this line to define vehicleData
@@ -42,9 +48,20 @@ const Details: React.FC = () => {
   };
 
   const handleContinueClick = () => {
+    // Validate email
+    if (!validateEmail(formData.email)) {
+      setEmailError(true);
+      alert("Invalid email format");
+      return;
+    }
+    // Validate phone number
+    if (!validatePhoneNumber(formData.phone)) {
+      setPhoneError(true);
+      alert("Invalid phone number format");
+      return;
+    }
     if (
       formData.name &&
-      formData.lastName &&
       formData.email &&
       formData.phone &&
       formData.fromLocation &&
@@ -72,7 +89,7 @@ const Details: React.FC = () => {
 
   return (
     <div
-      className={`p-4 pt-20 bg-white text-black min-h-full ${
+      className={`p-4 pt-20 bg-white text-black min-h-full bg-custom-gradient ${
         isSlideIn ? "animate-slide-in" : ""
       }`}
     >
@@ -189,7 +206,7 @@ const Details: React.FC = () => {
                 type="text"
                 name="name"
                 placeholder="First Name"
-                className="w-full p-3 rounded-md border border-gray-300"
+                className="w-full bg-opacity-50 p-3 rounded-md border border-gray-300 bg-gray-300 backdrop-filter backdrop-blur-lg focus:ring-gray-500 focus:border-gray-500 placeholder-gray-600"
                 value={formData.name}
                 onChange={handleInputChange}
                 required
@@ -207,7 +224,7 @@ const Details: React.FC = () => {
                 type="text"
                 name="lastName"
                 placeholder="Last Name"
-                className="w-full p-3 rounded-md border border-gray-300"
+                className="w-full bg-opacity-50 p-3 rounded-md border border-gray-300 bg-gray-300 backdrop-filter backdrop-blur-lg focus:ring-gray-500 focus:border-gray-500 placeholder-gray-600"
                 value={formData.lastName}
                 onChange={handleInputChange}
               />
@@ -220,7 +237,11 @@ const Details: React.FC = () => {
               type="email"
               name="email"
               placeholder="creativelayers088@gmail.com"
-              className="w-full p-3 rounded-md border border-gray-300"
+              className={`w-full bg-opacity-50 p-3 rounded-md border border-gray-300 bg-gray-300 backdrop-filter backdrop-blur-lg focus:ring-gray-500 focus:border-gray-500 placeholder-gray-600 ${
+                emailError
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-gray-300"
+              }`}
               value={formData.email}
               onChange={handleInputChange}
               required
@@ -233,7 +254,11 @@ const Details: React.FC = () => {
               type="tel"
               name="phone"
               placeholder="+91 9540291356"
-              className="w-full p-3 rounded-md border border-gray-300"
+              className={`w-full bg-opacity-50 p-3 rounded-md border border-gray-300 bg-gray-300 backdrop-filter backdrop-blur-lg focus:ring-gray-500 focus:border-gray-500 placeholder-gray-600 ${
+                phoneError
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-gray-300"
+              }`}
               value={formData.phone}
               onChange={handleInputChange}
               required
@@ -255,7 +280,7 @@ const Details: React.FC = () => {
                 type="text"
                 name="fromLocation"
                 placeholder="From Location"
-                className="w-full p-3 rounded-md border border-gray-300"
+                className="w-full bg-opacity-50 p-3 rounded-md border border-gray-300 bg-gray-300 backdrop-filter backdrop-blur-lg focus:ring-gray-500 focus:border-gray-500 placeholder-gray-600"
                 value={formData.fromLocation}
                 onChange={handleInputChange}
                 required
@@ -273,7 +298,7 @@ const Details: React.FC = () => {
                 type="text"
                 name="toLocation"
                 placeholder="To Location"
-                className="w-full p-3 rounded-md border border-gray-300"
+                className="w-full bg-opacity-50 p-3 rounded-md border border-gray-300 bg-gray-300 backdrop-filter backdrop-blur-lg focus:ring-gray-500 focus:border-gray-500 placeholder-gray-600"
                 value={formData.toLocation}
                 onChange={handleInputChange}
                 required
@@ -292,7 +317,7 @@ const Details: React.FC = () => {
                   onChange={(date) => setStartDate(date)}
                   showTimeSelect
                   dateFormat="MMMM d, yyyy h:mm aa"
-                  className="w-full p-3 rounded-md border border-gray-300"
+                  className="w-full bg-opacity-50 p-3 rounded-md border border-gray-300 bg-gray-300 backdrop-filter backdrop-blur-lg focus:ring-gray-500 focus:border-gray-500 placeholder-gray-600"
                   placeholderText="Select start date and time"
                   wrapperClassName="w-full"
                   required

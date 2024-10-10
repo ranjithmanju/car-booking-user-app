@@ -98,7 +98,7 @@ export default function Confirm() {
   const confirmStyle = getStepStyle(currentStep, 'confirm');
 
   return (
-    <div className={`p-4 pt-20 bg-white text-black min-h-full ${isSlideIn ? 'animate-slide-in' : ''}`}>
+    <div className={`p-4 pt-20 bg-white text-black min-h-full bg-custom-gradient ${isSlideIn ? 'animate-slide-in' : ''}`}>
       <div className="max-w-7xl mx-auto relative pb-8">
         <div className="flex justify-between items-center mb-4">
           <button
