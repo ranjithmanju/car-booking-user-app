@@ -78,7 +78,7 @@ const DashboardHome: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-3 text-black pt-24">
+    <div className="flex flex-col items-center justify-center min-h-screen p-3 text-black pt-24 bg-custom-gradient">
       {showBookingNotification && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-3 py-2 rounded relative mb-3 text-sm" role="alert">
           <strong className="font-bold">New Booking!</strong>
@@ -91,19 +91,22 @@ const DashboardHome: React.FC = () => {
           </span>
         </div>
       )}
-      <div className="flex justify-center items-center py-2">
-        <img src={LogoImage} alt="Security India Logo" className="w-48 h-32 md:w-64 md:h-60 lg:w-80 lg:h-36" />
+      <div className="flex justify-center items-center">
+        <img src={LogoImage} alt="Security India Logo" className="w-44 h-32 md:w-64 md:h-36 lg:w-72 lg:h-32" />
       </div>
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Welcome to Security India's fleet services</h1>
+      <h1 className="text-lg sm:text-2xl font-semibold mb-6 text-center">Welcome to Security India's fleet services</h1>
       <div className="flex flex-row space-x-6 w-full sm:w-3/4 md:w-2/3 lg:w-4/6 mx-auto">
         {vehicles.map((vehicle) => (
           <div
             key={vehicle.id}
-            className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-200 transition-all duration-300 hover:bg-orange-100 hover:shadow-lg group flex-1 cursor-pointer"
+            className="bg-white rounded-lg overflow-hidden shadow-md hover:bg-orange-100 hover:shadow-lg group flex-1 cursor-pointer backdrop-filter bg-opacity-30 backdrop-blur-lg border border-white border-opacity-20 transition-all duration-500 ease-in-out"
+            style={{
+              boxShadow: "0 0 2px rgba(0, 0, 0, 0.3)", // Equal shadow in all directions
+            }}
             onClick={() => handleOptionClick(vehicle.name)}
           >
             <div className="flex flex-col p-4">
-              <h2 className="text-xl font-semibold mb-3">
+              <h2 className="text-xl flex font-semibold mb-3 justify-center items-center">
                 {vehicle.businessClass}
               </h2>
               <div className="w-full mb-4">

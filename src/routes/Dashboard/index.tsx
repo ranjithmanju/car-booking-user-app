@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
   }, [location, isRootPath]);
 
   return (
-    <div className="dashboard flex flex-col min-h-screen bg-white text-black">
+    <div className="dashboard flex flex-col min-h-screen text-black bg-gray-100">
       <AppHeader />
       <div className="flex-grow overflow-hidden">
         {isRootPath ? (
