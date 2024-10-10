@@ -10,7 +10,7 @@ const SlickCarousel: React.FC<SlickCarouselProps> = ({ images }) => {
     dots: false, // Show dots for navigation
     infinite: true, // Infinite loop sliding
     speed: 500, // Transition speed
-    slidesToShow: 3, // Number of slides to show
+    slidesToShow: 4, // Number of slides to show
     slidesToScroll: 1, // Number of slides to scroll
     autoplay: true, // Enable autoplay
     autoplaySpeed: 3000, // Autoplay speed
@@ -27,14 +27,14 @@ const SlickCarousel: React.FC<SlickCarouselProps> = ({ images }) => {
             <div
               key={index}
               className="slick-slide"
-              style={{ height: "400px", overflow: "hidden" }}
+              style={{ height: "250px", overflow: "hidden" }}
             >
               <img
                 src={image}
                 alt={`Slide ${index}`}
-                className="slick-image"
+                className="slick-image rounded-lg"
                 loading="lazy" // Lazy loading attribute
-                style={{ width: "400px", height: "300px", objectFit: "fill" }}
+                style={{ width: "300px", height: "250px", objectFit: "fill" }}
               />
             </div>
           </div>

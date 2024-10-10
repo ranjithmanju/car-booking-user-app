@@ -12,11 +12,11 @@ export const Alert: React.FC<AlertProps> = ({
 }) => {
   const baseStyles = 'p-4 rounded-md';
   const variantStyles = variant === 'destructive' 
-    ? 'bg-red-100 border border-red-400 text-red-700' 
+    ? 'text-red-700' 
     : 'bg-blue-100 border border-blue-400 text-blue-700';
 
   return (
-    <div className={`${baseStyles} ${variantStyles} ${className}`} role="alert" {...props}>
+    <div className={`${variantStyles} ${className}`} role="alert" {...props}>
       {children}
     </div>
   );

@@ -4,7 +4,9 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   AuthError,
-  updatePassword
+  updatePassword,
+  EmailAuthProvider,
+  reauthenticateWithCredential
 } from 'firebase/auth';
 import { User } from 'firebase/auth';
 
@@ -36,12 +38,18 @@ export function getCurrentUser(): User | null {
   return auth.currentUser;
 }
 
-export async function changePassword(newPassword: string): Promise<void> {
+export async function changePassword(previousPassword: string, newPassword: string): Promise<void> {
   const user = auth.currentUser;
   if (!user) {
     throw new Error('No user is currently signed in');
   }
+
   try {
+    // Reauthenticate user with previous password
+    const credential = EmailAuthProvider.credential(user.email!, previousPassword); 
+    await reauthenticateWithCredential(user, credential);
+
+    // Now update to the new password
     await updatePassword(user, newPassword);
   } catch (error) {
     const authError = error as AuthError;
